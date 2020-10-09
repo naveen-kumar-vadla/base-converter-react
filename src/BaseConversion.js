@@ -20,7 +20,7 @@ const LabelWithInput = ({ text, value, onChange }) => {
 class BaseConversion extends Component {
   constructor(props) {
     super(props);
-    this.state = { base2Value: '1001', base8Value: '11', base10Value: '9' };
+    this.state = { base2Value: 1001, base8Value: 11, base10Value: 9 };
     this.onBase2Change = this.onBase2Change.bind(this);
     this.onBase8Change = this.onBase8Change.bind(this);
     this.onBase10Change = this.onBase10Change.bind(this);
@@ -29,23 +29,23 @@ class BaseConversion extends Component {
   onBase2Change(value) {
     this.setState(_ => ({
       base2Value: value,
-      base8Value: BaseConvertor.bin2octa(value) || '',
-      base10Value: BaseConvertor.bin2dec(value) || '',
+      base8Value: BaseConvertor.binaryToOctal(value) || '',
+      base10Value: BaseConvertor.binaryToDecimal(value) || '',
     }));
   }
 
   onBase8Change(value) {
     this.setState(_ => ({
-      base2Value: BaseConvertor.octa2bin(value) || '',
+      base2Value: BaseConvertor.octalToBinary(value) || '',
       base8Value: value,
-      base10Value: BaseConvertor.oct2dec(value) || '',
+      base10Value: BaseConvertor.octalToDecimal(value) || '',
     }));
   }
 
   onBase10Change(value) {
     this.setState(_ => ({
-      base2Value: BaseConvertor.dec2bin(value) || '',
-      base8Value: BaseConvertor.dec2octa(value) || '',
+      base2Value: BaseConvertor.decimalToBinary(value) || '',
+      base8Value: BaseConvertor.decimalToOctal(value) || '',
       base10Value: value,
     }));
   }
