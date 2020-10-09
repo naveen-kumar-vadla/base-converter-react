@@ -1,21 +1,29 @@
-const convertBase = (num, baseFrom, baseTo) => {
+const convert = (num, baseFrom, baseTo) => {
   const conversionValue = parseInt(num, baseFrom).toString(baseTo);
   return conversionValue === 'NaN' ? '' : conversionValue;
 };
 
-const BaseConvertor = {
-  binaryToOctal: num => convertBase(num, 2, 8),
-  binaryToDecimal: num => convertBase(num, 2, 10),
-  binaryToHexaDecimal: num => convertBase(num, 2, 16),
-  octalToBinary: num => convertBase(num, 8, 2),
-  octalToDecimal: num => convertBase(num, 8, 10),
-  octalToHexDecimal: num => convertBase(num, 8, 16),
-  decimalToBinary: num => convertBase(num, 10, 2),
-  decimalToOctal: num => convertBase(num, 10, 8),
-  decimalToHexaDecimal: num => convertBase(num, 10, 16),
-  hexaDecimalToBinary: num => convertBase(num, 16, 2),
-  hexaDecimalToOctal: num => convertBase(num, 16, 8),
-  hexaDecimalToDecimal: num => convertBase(num, 16, 10),
-};
-
-export default BaseConvertor;
+export const Binary = num => ({
+  base2Value: num,
+  base8Value: convert(num, 2, 8),
+  base10Value: convert(num, 2, 10),
+  base16Value: convert(num, 2, 16),
+});
+export const Octal = num => ({
+  base2Value: convert(num, 8, 2),
+  base8Value: num,
+  base10Value: convert(num, 8, 10),
+  base16Value: convert(num, 8, 16),
+});
+export const Decimal = num => ({
+  base2Value: convert(num, 10, 2),
+  base8Value: convert(num, 10, 8),
+  base10Value: num,
+  base16Value: convert(num, 10, 16),
+});
+export const HexaDecimal = num => ({
+  base2Value: convert(num, 16, 2),
+  base8Value: convert(num, 16, 8),
+  base10Value: convert(num, 16, 10),
+  base16Value: num,
+});

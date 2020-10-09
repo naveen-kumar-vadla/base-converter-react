@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-import BaseConvertor from './BaseConvertor';
+import { Binary, Octal, Decimal, HexaDecimal } from './BaseConvertor';
 
 const LabelWithInput = ({ text, value, onChange }) => {
   return (
@@ -17,6 +17,16 @@ const LabelWithInput = ({ text, value, onChange }) => {
   );
 };
 
+const BaseType = ({ text, value, onChange, type }) => {
+  return (
+    <LabelWithInput
+      text={text}
+      value={value}
+      onChange={v => onChange(type(v))}
+    />
+  );
+};
+
 class BaseConversion extends Component {
   constructor(props) {
     super(props);
@@ -26,70 +36,39 @@ class BaseConversion extends Component {
       base10Value: '10',
       base16Value: 'a',
     };
-    this.onBase2Change = this.onBase2Change.bind(this);
-    this.onBase8Change = this.onBase8Change.bind(this);
-    this.onBase10Change = this.onBase10Change.bind(this);
-    this.onBase16Change = this.onBase16Change.bind(this);
+    this.onChange = this.onChange.bind(this);
   }
 
-  onBase2Change(value) {
-    this.setState(_ => ({
-      base2Value: value,
-      base8Value: BaseConvertor.binaryToOctal(value),
-      base10Value: BaseConvertor.binaryToDecimal(value),
-      base16Value: BaseConvertor.binaryToHexaDecimal(value),
-    }));
-  }
-
-  onBase8Change(value) {
-    this.setState(_ => ({
-      base2Value: BaseConvertor.octalToBinary(value),
-      base8Value: value,
-      base10Value: BaseConvertor.octalToDecimal(value),
-      base16Value: BaseConvertor.octalToHexDecimal(value),
-    }));
-  }
-
-  onBase10Change(value) {
-    this.setState(_ => ({
-      base2Value: BaseConvertor.decimalToBinary(value),
-      base8Value: BaseConvertor.decimalToOctal(value),
-      base10Value: value,
-      base16Value: BaseConvertor.decimalToHexaDecimal(value),
-    }));
-  }
-
-  onBase16Change(value) {
-    this.setState(_ => ({
-      base2Value: BaseConvertor.hexaDecimalToBinary(value),
-      base8Value: BaseConvertor.hexaDecimalToOctal(value),
-      base10Value: BaseConvertor.hexaDecimalToDecimal(value),
-      base16Value: value,
-    }));
+  onChange(state) {
+    this.setState(_ => state);
   }
 
   render() {
     return (
       <div style={{ display: 'flex', flexFlow: 'column wrap' }}>
-        <LabelWithInput
+        <BaseType
           text='Base 2'
           value={this.state.base2Value}
-          onChange={this.onBase2Change}
+          onChange={this.onChange}
+          type={Binary}
         />
-        <LabelWithInput
+        <BaseType
           text='Base 8'
           value={this.state.base8Value}
-          onChange={this.onBase8Change}
+          onChange={this.onChange}
+          type={Octal}
         />
-        <LabelWithInput
+        <BaseType
           text='Base 10'
           value={this.state.base10Value}
-          onChange={this.onBase10Change}
+          onChange={this.onChange}
+          type={Decimal}
         />
-        <LabelWithInput
+        <BaseType
           text='Base 16'
           value={this.state.base16Value}
-          onChange={this.onBase16Change}
+          onChange={this.onChange}
+          type={HexaDecimal}
         />
       </div>
     );
