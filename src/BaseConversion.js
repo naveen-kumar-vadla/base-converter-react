@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-import { Binary, Octal, Decimal, HexaDecimal } from './BaseConvertor';
+import { Binary, Octal, Decimal, HexaDecimal } from './BaseConverter';
 
 const LabelWithInput = ({ text, value, onChange }) => {
   return (
